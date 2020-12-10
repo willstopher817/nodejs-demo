@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>Test</title>
+		<link rel="stylesheet" type="text/css" href="./bootstrap.min.css">
+		<script type="text/javascript" src="./jquery-3.3.1.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				function displayUsers() {
+					// send AJAX request to server and get users object back.
+					$.ajax({						
+						url: '/users',		// the full path is 'http://localhost:3000/users'
+						method: 'GET'
+					}).then(function(data) {		// response data that server sends back to you, data is server.js line 50, userDao.findAll() json object 		// this function is a success callback function, if status is 200, it will be invokded 
+						var users = data;
+						var $tbody = $('table tbody');
+						$tbody.empty();		
+						users.forEach(function(user) {		// forEach doesn't return anything, while map returns
+							var $tr = $('<tr><td>' + user.name +'</td><td>' + user.age + '</td></tr>');
+							$tbody.append($tr);
+						});
+					});
+				};
+
+				displayUsers();
+
+				$('#add_btn').on('click', function(event) {
+					// prevent default behavior of submit button which is form submission, the html page won't be refreshed by using this method
+					event.preventDefault();
+
+					// get new user
+					var newUser = {
+						name: $('#name').val(),
+						age: $('#age').val()
+					};
+
+					// send POST request containing new user to server
+					$.ajax({
+						url: '/users',		
+						method: 'POST',
+						data: newUser
+					}).then(function(data) {
+						if (data.success) {
+							displayUsers();
+						}
+						alert(data.message);
+					});
+				});
+
+			});
+		</script>
+	</head>
+	<body class="container">
+		<h1>Home page for Willstopher</h1>
+		<table class="table table-bordered table-stiped">
+			<thead>
+				<tr>
+					<th>Name</th> 
+					<th>Age</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<hr>
+		<div>
+			<h2>Add New User</h2>
+			<form>
+				<div class="form-group">
+					<label>
+						Name: <input type="text" class="form-control" id="name">
+					</label>
+				</div>
+				<div class="form-group">
+					<label>
+						Age: <input type="number" class="form-control" id="age">
+					</label>
+				</div>
+				<button type="submit" class="btn btn-primary" id="add_btn">Add</button>
+			</form>
+		</div>
+	</body>
+	</html>	

@@ -1,0 +1,28 @@
+// there are how parse body, express.static work.
+
+
+express.static = function(path) {
+    return function(req, res, next) {
+        // path + /test.html
+        // var contensts = fs.xx(path + /test.html)
+        res.send(contents);
+    }
+}
+bodyParser.json = function() {
+    return function(req, res, next) {
+        req.chunks = [....]
+        // combine chuns
+        // convert string to js object
+        req.body = js object;
+        next();
+    }
+}
+"{name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,name: '', age: 20,}"
+4kb
+chunks - 4 * 1kb
+
+
+
+
+encode is to handle case like this:   to convert code like this to required code format
+name=bob&age=21
